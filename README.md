@@ -1,4 +1,4 @@
-Example from https://aws.amazon.com/blogs/compute/writing-aws-lambda-functions-in-scala/
+Various AWS Lambdas
 
-- `sbt compile`
-- `sbt assembly`
+- `sbt clean compile assembly`
+
