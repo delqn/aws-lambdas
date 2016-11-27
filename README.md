@@ -1,7 +1,7 @@
 #AWS Lambdas
 
 Let's put this Bash script in the cloud:
- 
+
 ```
 #!/bin/bash
 {
@@ -54,9 +54,9 @@ gives you a computable fusion reflector roster:
 ### Trivia
   - Most popular reflectors as of this commit:
   ```
-  curl -s https://o51kt1xrri.execute-api.us-west-1.amazonaws.com/prod | sed 's/\[/\n/g' | grep FCS | awk -F'"' '{print $6}' | sed 's/ /-/g' | sort | uniq -c | sort -k1 -rn | head
+  curl -s https://somethingsecret.execute-api.us-west-1.amazonaws.com/prod | sed 's/\[/\n/g' | grep FCS | awk -F'"' '{print $6}' | sed 's/ /-/g' | sort | uniq -c | sort -k1 -rn | head
   ```
-  
+
 ```
      29 FCS001-01
      28 FCS002-02
@@ -69,4 +69,3 @@ gives you a computable fusion reflector roster:
       8 FCS002-14
       7 FCS002-23
 ```
-  
