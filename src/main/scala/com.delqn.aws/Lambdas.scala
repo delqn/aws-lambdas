@@ -1,5 +1,6 @@
 package com.delqn.aws
 
+import scala.collection.JavaConverters._
 import scala.io.Source
 import scala.util.matching.Regex
 
@@ -24,13 +25,13 @@ object Lambdas {
     val html = Source.fromURL(url).mkString.filter(_ != '\n')
     getRows(html).map(getTextFieldsForRow)
   }
-  def toJSON(in: Iterator[Iterator[String]]): List[List[String]] = {
-    in.map(list => list.map(_.toString).toList).toList
+  def toJSON(in: Iterator[Iterator[String]]): java.util.List[java.util.List[String]] = {
+    in.map(list => list.map(_.toString).toList.asJava).toList.asJava
   }
 }
 
 class Lambdas {
-  def getFusionStations: List[List[String]] = {
+  def getFusionStations: java.util.List[java.util.List[String]] = {
     // TODO(delyan): go through the list of URLs and ++ them
     // TODO(delyan): what's the expected return type for AWS Lambda?
     Lambdas.toJSON(Lambdas.getUrl(Lambdas.urls.head))
