@@ -65,6 +65,6 @@ class LambdasTestSpec extends FlatSpec with Matchers {
 
   "toJSON" should "convert iterator if iterators to JSON string" in {
     val in = List(List("a", "b").toIterator, List("c", "d").toIterator).toIterator
-    Lambdas.toJSON(in) should be ("""[["a","b"],["c","d"]]""")
+    Lambdas.toJSON(in) should be (List(List("a","b"),List("c","d")))
   }
 }
