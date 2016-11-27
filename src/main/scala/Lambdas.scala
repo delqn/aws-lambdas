@@ -2,7 +2,7 @@ package example
 
 import scala.io.Source
 
-class Main {
+class Lambdas {
   def getFusionStations(): Iterator[Iterator[String]] = {
     val urls = Seq(
       "http://fcs001.xreflector.net/mitte.html",
