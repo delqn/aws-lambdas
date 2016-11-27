@@ -1,30 +1,8 @@
 package com.delqn.test
 
+import scala.collection.JavaConverters._
 import org.scalatest._
 import com.delqn.aws.Lambdas
-
-import scala.util.matching.Regex
-
-/*
-
-object Lambdas {
-  val urls: Seq[String] = Seq(
-    "http://fcs001.xreflector.net/mitte.html",
-    "http://fcs002.xreflector.net/mitte.html",
-    "http://laboenligne.ca/fcs003/mitte.html"
-  )
-
-  def removeAngles(s: String): String = s.filter(_ != '<').filter(_ != '>')
-  def getCells(s: String): Iterator[String] = textPattern.findAllIn(s).map(removeAngles)
-
-  def getUrl(url: String): Iterator[Iterator[String]] = {
-    // get the HTML source and remove new lines so regexes work correctly
-    val html = Source.fromURL(url).mkString.filter(_ != '\n')
-    rowPattern.findAllIn(html).map(getCells)
-  }
-}
-
- */
 
 class LambdasTestSpec extends FlatSpec with Matchers {
   val html = "blah <table> <tr><td>snth</td><td>aoeu</td></tr> <tr>x</tr></table>"
@@ -65,6 +43,6 @@ class LambdasTestSpec extends FlatSpec with Matchers {
 
   "toJSON" should "convert iterator if iterators to JSON string" in {
     val in = List(List("a", "b").toIterator, List("c", "d").toIterator).toIterator
-    Lambdas.toJSON(in) should be (List(List("a","b"),List("c","d")))
+    Lambdas.toJSON(in) should be (List(List("a","b").asJava, List("c","d").asJava).asJava)
   }
 }
