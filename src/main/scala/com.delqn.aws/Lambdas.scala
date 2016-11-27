@@ -24,12 +24,18 @@ object Lambdas {
     val html = Source.fromURL(url).mkString.filter(_ != '\n')
     getRows(html).map(getTextFieldsForRow)
   }
+  def toJSON(in: Iterator[Iterator[String]]): String = {
+    val ret = in.map(list => list.map(x => s""""$x"""").mkString(","))
+      .toList.map(x => s"[$x]")
+      .mkString(",")
+    s"[$ret]"
+  }
 }
 
 class Lambdas {
-  def getFusionStations: Iterator[Iterator[String]] = {
+  def getFusionStations: String = {
     // TODO(delyan): go through the list of URLs and ++ them
     // TODO(delyan): what's the expected return type for AWS Lambda?
-    Lambdas.getUrl(Lambdas.urls.head)
+    Lambdas.toJSON(Lambdas.getUrl(Lambdas.urls.head))
   }
 }

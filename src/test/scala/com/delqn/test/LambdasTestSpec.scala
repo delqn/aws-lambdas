@@ -62,4 +62,9 @@ class LambdasTestSpec extends FlatSpec with Matchers {
     val row = "<tr><td>snth</td><td>aoeu</td></tr>"
     Lambdas.getTextFieldsForRow(row).toList should be (List("snth", "aoeu"))
   }
+
+  "toJSON" should "convert iterator if iterators to JSON string" in {
+    val in = List(List("a", "b").toIterator, List("c", "d").toIterator).toIterator
+    Lambdas.toJSON(in) should be ("""[["a","b"],["c","d"]]""")
+  }
 }
