@@ -25,15 +25,19 @@ object Lambdas {
     val html = Source.fromURL(url).mkString.filter(_ != '\n')
     getRows(html).map(getTextFieldsForRow)
   }
-  def toJSON(in: Iterator[Iterator[String]]): java.util.List[java.util.List[String]] = {
-    in.map(list => list.map(_.toString).toList.asJava).toList.asJava
+  implicit def toJavaList(in: List[TraversableOnce[String]]): java.util.List[java.util.List[String]] = {
+    // AWS Lambda expects java.util.List !!!
+    in.map(list => list.map(_.toString).toList.asJava).asJava
   }
 }
 
+import Lambdas._
+
 class Lambdas {
   def getFusionStations: java.util.List[java.util.List[String]] = {
-    // TODO(delyan): go through the list of URLs and ++ them
-    // TODO(delyan): what's the expected return type for AWS Lambda?
-    Lambdas.toJSON(Lambdas.getUrl(Lambdas.urls.head))
+    // Fetch all URLs in parallel
+    // Convert each fetched HTML table into List of Lists
+    // Combine all tables into one list of lists
+    urls.par.map(getUrl).scanLeft(List.empty[TraversableOnce[String]]){ case (a, b) => a ++ b }.reverse.head
   }
 }
