@@ -4,7 +4,7 @@ retrieveManaged := true
 
 lazy val root = (project in file(".")).
   settings(
-    name := "aws-lambda-get-stock-price",
+    name := "aws-lambdas",
     version := "1.0",
     scalaVersion := "2.12.0",
     retrieveManaged := true,
